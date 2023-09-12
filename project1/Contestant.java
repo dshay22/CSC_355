@@ -24,14 +24,14 @@ public class Contestant {
     public String toString(Contestant obj){
         String formattedString;
         String playerName = obj.name;
-        String playerScore = string_to_int(obj.score);
+        String playerScore = int_to_String(obj.score);
 
         formattedString = playerName + ": " + playerScore;
 
         return formattedString;
     }
 
-    public String string_to_int(int x){
+    public String int_to_String(int x){
        return Integer.toString(x);
     }
 
