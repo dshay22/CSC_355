@@ -16,23 +16,19 @@ public class Contestant {
         return this.score;
     }
 
-    public int compareTo(Contestant obj){
-        
-        return -1;
+    public int compareTo(Contestant incoming){
+        if(this.score > incoming.getScore()){
+            return -1;
+        }
+        else if(this.score < incoming.getScore()){
+            return 1;
+        }
+        else{
+            return this.name.compareTo(incoming.getName());
+        }
     }
 
-    public String toString(Contestant obj){
-        String formattedString;
-        String playerName = obj.name;
-        String playerScore = int_to_String(obj.score);
-
-        formattedString = playerName + ": " + playerScore;
-
-        return formattedString;
+    public String toString(){
+        return this.name + ": " + Integer.toString(this.score);
     }
-
-    public String int_to_String(int x){
-       return Integer.toString(x);
-    }
-
 }

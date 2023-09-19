@@ -9,13 +9,28 @@ class LeaderBoardTest {
     public static void main(String args[])
     {
         try {
-            Contestant[] collection_of_Contestants;
             File myObj = new File("project1/names.txt");
             Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {  
-              String data = myReader.nextLine();
-              Contestant myContestant = new Contestant(getName(data), getScore(data));
-              
+            String data;
+            LeaderBoard myLeaderBoard;
+            Contestant myContestant;
+            int m = 0;
+            
+            m = myReader.nextInt();                                            //Size of the final array
+            data = myReader.nextLine();                                        //Currently gets the white space after the "m" number
+
+            myLeaderBoard = new LeaderBoard(m);                                //creates the leaderBoard object of size m
+
+            while(myReader.hasNextLine()){
+                data = myReader.nextLine();                                   //This gets the names in the list
+                myContestant = new Contestant(getName(data), getScore(data));  //creates the contestant objects
+                myLeaderBoard.add(myContestant);
+            }
+
+            Contestant[] finalBoard = myLeaderBoard.finalBoard();
+
+            for(int i = 0; i < finalBoard.length; ++i){
+                System.out.println(finalBoard[i].toString());
             }
 
             myReader.close();
@@ -31,11 +46,10 @@ class LeaderBoardTest {
     }
 
     public static int getScore(String line){
-        return  Integer.parseInt(line, getIndexOfComma(line) + 1);
+        return  Integer.parseInt(line.substring(getIndexOfComma(line) + 1, line.length()));
     }
 
     public static int getIndexOfComma(String line){
         return line.indexOf(",", 0);
     }
-
 }
