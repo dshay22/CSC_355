@@ -1,4 +1,4 @@
-10
+15
 Mary Smith,5
 Anna Adams,10
 Emma Bates,1

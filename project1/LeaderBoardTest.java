@@ -11,6 +11,7 @@ class LeaderBoardTest {
         try {
             File myObj = new File("project1/names.txt");
             Scanner myReader = new Scanner(myObj);
+            Scanner myReader2 = new Scanner(myObj);
             String data;
             LeaderBoard myLeaderBoard;
             Contestant myContestant;
@@ -20,9 +21,18 @@ class LeaderBoardTest {
             data = myReader.nextLine();                                        //Currently gets the white space after the "m" number
 
             myLeaderBoard = new LeaderBoard(m);                                //creates the leaderBoard object of size m
-
-            while(myReader.hasNextLine()){
+            
+            for(int i = 0; i < m; ++i){
                 data = myReader.nextLine();                                   //This gets the names in the list
+                myContestant = new Contestant(getName(data), getScore(data));  //creates the contestant objects
+                myLeaderBoard.add(myContestant);
+            }
+            myReader.close();
+            
+            System.out.println(myReader2.nextLine());
+            
+            while(myReader2.hasNextLine()){
+                data = myReader2.nextLine();                                   //This gets the names in the list
                 myContestant = new Contestant(getName(data), getScore(data));  //creates the contestant objects
                 myLeaderBoard.add(myContestant);
             }
@@ -30,10 +40,10 @@ class LeaderBoardTest {
             Contestant[] finalBoard = myLeaderBoard.finalBoard();
 
             for(int i = 0; i < finalBoard.length; ++i){
-                System.out.println(finalBoard[i].toString());
+                System.out.println(i + 1 + ": " + finalBoard[i].toString());
             }
 
-            myReader.close();
+            myReader2.close();
         } 
         catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
