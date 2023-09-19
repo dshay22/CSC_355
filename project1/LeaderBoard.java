@@ -10,7 +10,6 @@ public class LeaderBoard {
    }
 
    public void add(Contestant c) {
-     int replaceIndex = -1;
      if(!this.noMoreNULLVals){
           int index = isNULL();
           if(index >= 0){
@@ -23,17 +22,14 @@ public class LeaderBoard {
      }
 
      for(int i = 0; i < leaderBordSize; ++i){
-          if(leaderBord[i].compareTo(c) > 0){
-               replaceIndex = i;
+          if (leaderBord[i].compareTo(c) > 0) {
+               for (int j = leaderBord.length - 1; j > i; j--) {
+                   leaderBord[j] = leaderBord[j - 1];
+               }
+               leaderBord[i] = c;
                break;
-          }
+           }
      }
-
-     if(replaceIndex != -1){
-          shiftArray(leaderBord, replaceIndex, leaderBordSize - 1);
-          leaderBord[replaceIndex] = c;
-     }
-     
    }
 
    public Contestant[] finalBoard() {
@@ -47,11 +43,5 @@ public class LeaderBoard {
           }
      }
      return -1;
-   }
-
-   public void shiftArray(Contestant[] myArray, int startIndex, int endIndex){
-     for (int i = endIndex; i > startIndex; i--) {
-          myArray[i] = myArray[i - 1];
-      }
    }
 }
