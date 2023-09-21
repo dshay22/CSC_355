@@ -10,6 +10,7 @@ public class LeaderBoard {
      }
 
      public void add(Contestant c) {
+
           if(!this.noMoreNULLVals){
                int index = isNULL();
                if(index >= 0){
@@ -23,7 +24,7 @@ public class LeaderBoard {
 
           for(int i = 0; i < leaderBordSize; ++i){
                if (leaderBord[i].compareTo(c) > 0) {
-                    for (int j = leaderBord.length - 1; j > i; j--) {
+                    for (int j = leaderBord.length - 1; j > i; --j) {
                          leaderBord[j] = leaderBord[j - 1];
                     }
                     leaderBord[i] = c;

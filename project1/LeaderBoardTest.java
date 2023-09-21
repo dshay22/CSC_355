@@ -9,7 +9,7 @@ class LeaderBoardTest {
     public static void main(String args[])
     {
         try {
-            File myObj = new File("project1/names.txt");
+            File myObj = new File("names.txt");
             Scanner myReader = new Scanner(myObj);
             Scanner myReader2 = new Scanner(myObj);
             String data;
