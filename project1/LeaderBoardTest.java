@@ -22,17 +22,17 @@ class LeaderBoardTest {
 
             myLeaderBoard = new LeaderBoard(m);                                //creates the leaderBoard object of size m
             
-            for(int i = 0; i < m; ++i){
+            // for(int i = 0; i < m; ++i){
+            //     data = myReader.nextLine();                                    //This gets the names in the list
+            //     myContestant = new Contestant(getName(data), getScore(data));  //creates the contestant objects
+            //     myLeaderBoard.add(myContestant);
+            // }
+            //myReader.close();
+            
+            System.out.println(myReader.nextLine());
+            
+            while(myReader.hasNextLine()){
                 data = myReader.nextLine();                                   //This gets the names in the list
-                myContestant = new Contestant(getName(data), getScore(data));  //creates the contestant objects
-                myLeaderBoard.add(myContestant);
-            }
-            myReader.close();
-            
-            System.out.println(myReader2.nextLine());
-            
-            while(myReader2.hasNextLine()){
-                data = myReader2.nextLine();                                   //This gets the names in the list
                 myContestant = new Contestant(getName(data), getScore(data));  //creates the contestant objects
                 myLeaderBoard.add(myContestant);
             }
