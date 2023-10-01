@@ -19,7 +19,7 @@ class LeaderBoardTest {
 
     public static void runCode(int m){                                     //Function that runs the desired assignment code
         try {
-            File myObj = new File("names.txt");                   //variables needed to exicute the program
+            File myObj = new File("project1\\names.txt");                   //variables needed to exicute the program
             Scanner myReader = new Scanner(myObj);
             String data;
             LeaderBoard myLeaderBoard;
