@@ -2,49 +2,39 @@ import java.util.Arrays;
 
 public class SorstArray {
     public static void main(String[] args) {
-        int[] exArry = {0, 2, 5, 6, 2, 6, 6, 7, 8, 9};
-        int splitIndex = 3;
+        int[] exArry = {0, 2, 5, 6, 7, 8, 10, 2, 8, 9};
+        int splitIndex = 6;
 
-        sortArray(exArry, splitIndex);  //Call my sorting function
+        int[] newArry = sortArray(exArry, splitIndex);  //Call my sorting function
 
-        System.out.println("Sorted Array: " + Arrays.toString(exArry));
+        System.out.println("Sorted Array: " + Arrays.toString(newArry));
 
     }
 
-    public static void sortArray(int[] inputArry, int splitIndex){
-        int addAllIndex = 0;
-        int[] greatestNums;
+    public static int[] sortArray(int[] inputArry, int splitIndex){
 
-        if(inputArry[splitIndex] < inputArry[inputArry.length - 1]){ 
+        int[] B = new int[inputArry.length];
+        int _a = 0; //Index for the first subarray
+        int _b = splitIndex + 1; //Index for the second subarray
+        int _m = 0; //Index for the merged array
 
-            for(int i = splitIndex + 1; i < inputArry.length - 1; ++i){ //this for loop is to find the index where
-                if((inputArry[splitIndex] <= inputArry[i])){            //the second subarray has a value >= the largest value of the 
-                    addAllIndex = i;                                    //smaller sub array. we assign that index to addAllIndex
-                    break;
+            //Merge the subarrays
+            while(_a <= splitIndex && _b < inputArry.length){
+                if(inputArry[_a] < inputArry[_b]){
+                    B[_m++] = inputArry[_a++];
+
+                }
+                else{
+                    B[_m++] = inputArry[_b++];
                 }
             }
-
-            greatestNums = new int[(inputArry.length - addAllIndex)];  // these two lines copy a new array with the largest values in the second sub array
-            System.arraycopy(inputArry, addAllIndex, greatestNums, 0, (inputArry.length - addAllIndex));
-            
-            boolean swapped;
-
-            do {
-                swapped = false;
-                for(int j = 0; j <= splitIndex + 1; ++j){ //if there are any values in the second sub array that
-                    if (inputArry[j] > inputArry[j + 1]) {// are smaller than the largest value in the first sub array
-                        int temp = inputArry[j];          //this for loop sorts those values by using temp variables and shifting the elements
-                        inputArry[j] = inputArry[j + 1];
-                        inputArry[j + 1] = temp;
-                        swapped = true;
-                    }
-                }
-            } while(swapped); //continue to swap all the values until the first sub array and 
-                              //the left over values in the second sub array are sorted
-
-            for(int j = addAllIndex; j < inputArry.length - 1; ++j){//this for loop adds back the values of the greatest numbers in the second 
-                inputArry[j] = greatestNums[j - addAllIndex];       // sorted sub array to the end of the first array
+            for(int i = _b; i < inputArry.length; ++i){
+                B[_m++] = inputArry[_b++];
             }
-        }
+            for(int i = _a; i <= splitIndex; ++i){
+                B[_m++] = inputArry[_a++];
+            }
+
+        return B;
     }
 }
