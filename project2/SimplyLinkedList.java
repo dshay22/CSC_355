@@ -4,58 +4,100 @@ public class SimplyLinkedList {
 
     private int dataVal;         // Node data
     private SimplyLinkedList nextNodeRef; // Reference to the next node
+    private boolean isHead;
 
     public SimplyLinkedList() {
-      dataVal = -9999;
-      nextNodeRef = null;
+      this.nextNodeRef = null;
+      this.isHead = true;
     }
 
    // Constructor
     public SimplyLinkedList(int dataInit) {
       this.dataVal = dataInit;
       this.nextNodeRef = null;
+      this.isHead = true;
     }
 
-   /* Insert node after this node.
-    Before: this -- next
-    After:  this -- node -- next
-    */
-    public void insertAfter(SimplyLinkedList currLoc) {
+    public void insertAfterKnownNode(SimplyLinkedList currLoc) {
       SimplyLinkedList tmpNext;
 
       tmpNext = this.nextNodeRef;
       this.nextNodeRef = currLoc;
       currLoc.nextNodeRef = tmpNext;
+      currLoc.isHead = false;
     }
 
-    public void insertAfter(SimplyLinkedList head, SimplyLinkedList insertNode,int insertIndex) {
-        SimplyLinkedList beforeInsertion;
+    public void insertAtElementLocation(SimplyLinkedList head, SimplyLinkedList insertNode,int insertIndex) {
+        SimplyLinkedList beforeInsertion = TraversingList(head, insertIndex);
         SimplyLinkedList tmpNext;
-
-        beforeInsertion = head;
-        for(int i = 0; i < insertIndex; ++i){
-            beforeInsertion = beforeInsertion.getNext();
-        }
 
         tmpNext = beforeInsertion.getNext();
         beforeInsertion.nextNodeRef = insertNode;
         insertNode.nextNodeRef = tmpNext;
+        insertNode.isHead = false;
     }
 
-    public void deleteNode(SimplyLinkedList head, int nodeLocation) {
-        SimplyLinkedList beforeDeletion = head;
-        SimplyLinkedList afterDeletion;
-        SimplyLinkedList currDeletion;
+    public void insertAtLast(SimplyLinkedList head, SimplyLinkedList insertNode) {
+        SimplyLinkedList beforeInsertion;
 
-        for(int i = 0; i < nodeLocation; ++i){
-            beforeDeletion = beforeDeletion.getNext();
+        beforeInsertion = head;
+        while(beforeInsertion.nextNodeRef != null){
+          beforeInsertion = beforeInsertion.getNext();
         }
 
-        currDeletion = beforeDeletion.getNext();
-        afterDeletion = beforeDeletion.getNext().getNext();
+        beforeInsertion.nextNodeRef = insertNode;
+        insertNode.isHead = false;
+    }
 
-        currDeletion = null;
-        beforeDeletion.nextNodeRef = afterDeletion;
+    public void deleteNode(SimplyLinkedList head, int index) {
+      SimplyLinkedList beforeDeletion = TraversingList(head, index);
+      SimplyLinkedList afterDeletion;
+
+      afterDeletion = beforeDeletion.getNext().getNext();
+      beforeDeletion.nextNodeRef = afterDeletion;
+    }
+
+    public SimplyLinkedList searchNodes(SimplyLinkedList head, int target){
+        SimplyLinkedList searchNode;
+
+        searchNode = head;
+        while((searchNode.getDataVal() != target)){
+          if(searchNode.nextNodeRef == null){
+            System.out.println("Node not found \nReturning Last node in the list:");
+            break;
+          }
+          searchNode = searchNode.getNext();
+        }
+
+        return searchNode;
+    }
+
+    public void TraversingList(SimplyLinkedList head){
+      SimplyLinkedList traverseNode;
+
+      traverseNode = head;
+      while((traverseNode.nextNodeRef != null)){
+        if(!traverseNode.isHead){
+          traverseNode.printNodeData();
+        }
+        traverseNode = traverseNode.getNext();
+      }
+
+      System.out.println();
+    }
+
+    public SimplyLinkedList TraversingList(SimplyLinkedList head, int index){
+      SimplyLinkedList traverseNode;
+
+      traverseNode = head;
+      for(int i = 0; i < index; ++i){
+        if(!traverseNode.isHead){
+          traverseNode.printNodeData();
+        }
+        traverseNode = traverseNode.getNext();
+      }
+
+      return traverseNode;
     }
 
     // Get location of nextNodeRef
