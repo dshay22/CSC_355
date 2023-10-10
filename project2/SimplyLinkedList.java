@@ -1,116 +1,82 @@
 import java.util.LinkedList;
-
 public class SimplyLinkedList {
+    // Inner node class for the linked list
+    private class Node {
+        int  data;
+        Node next;
 
-    private int dataVal;         // Node data
-    private SimplyLinkedList nextNodeRef; // Reference to the next node
-    private boolean isHead;
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
 
     public SimplyLinkedList() {
-      this.nextNodeRef = null;
-      this.isHead = true;
+        this.head = null;
     }
 
-   // Constructor
-    public SimplyLinkedList(int dataInit) {
-      this.dataVal = dataInit;
-      this.nextNodeRef = null;
-      this.isHead = true;
+    // Method to insert a node
+    public void insert(int data) {
+      Node newNode = new Node(data);
+      Node tmpNext = head.next;
+      head.next = newNode;
+      newNode.next = tmpNext;
     }
 
-    public void insertAfterKnownNode(SimplyLinkedList currLoc) {
-      SimplyLinkedList tmpNext;
-
-      tmpNext = this.nextNodeRef;
-      this.nextNodeRef = currLoc;
-      currLoc.nextNodeRef = tmpNext;
-      currLoc.isHead = false;
+    // Method to delete the head
+    public void deleteHead() {
+        Node tmpNext = head;
+        head = tmpNext.next;
+        head = null;
+        head = tmpNext;
     }
 
-    public void insertAtElementLocation(SimplyLinkedList head, SimplyLinkedList insertNode,int insertIndex) {
-        SimplyLinkedList beforeInsertion = TraversingList(head, insertIndex);
-        SimplyLinkedList tmpNext;
-
-        tmpNext = beforeInsertion.getNext();
-        beforeInsertion.nextNodeRef = insertNode;
-        insertNode.nextNodeRef = tmpNext;
-        insertNode.isHead = false;
-    }
-
-    public void insertAtLast(SimplyLinkedList head, SimplyLinkedList insertNode) {
-        SimplyLinkedList beforeInsertion;
-
-        beforeInsertion = head;
-        while(beforeInsertion.nextNodeRef != null){
-          beforeInsertion = beforeInsertion.getNext();
+    // Method to delete the tail
+    public void deleteTail() {
+      Node tmpNext = head;
+        while(head.next != null){
+          head = head.next;
         }
-
-        beforeInsertion.nextNodeRef = insertNode;
-        insertNode.isHead = false;
+        head = null;
+        head = tmpNext;
     }
 
-    public void deleteNode(SimplyLinkedList head, int index) {
-      SimplyLinkedList beforeDeletion = TraversingList(head, index);
-      SimplyLinkedList afterDeletion;
+    // Method to delete a node with the given value
+    public void delete(int data) {
+      Node tmpNext = head;
+      Node tmpNextNext;
 
-      afterDeletion = beforeDeletion.getNext().getNext();
-      beforeDeletion.nextNodeRef = afterDeletion;
+      int elementIndex = search(data);
+      for(int i = 0; i < elementIndex - 1; ++i){
+        tmpNext = tmpNext.next;
+      }
+
+      tmpNextNext = tmpNext.next.next;
+      tmpNext.next = null;
+      tmpNext.next = tmpNextNext;
     }
 
-    public SimplyLinkedList searchNodes(SimplyLinkedList head, int target){
-        SimplyLinkedList searchNode;
-
-        searchNode = head;
-        while((searchNode.getDataVal() != target)){
-          if(searchNode.nextNodeRef == null){
-            System.out.println("Node not found \nReturning Last node in the list:");
-            break;
+    // Method to search for a certain element
+    public int search(int data) {
+        Node tmpNext = head;
+        int count = 0;
+        while(tmpNext.next != null){
+          tmpNext = tmpNext.next;
+          count++;
+          if(tmpNext.data == data){
+            return count;
           }
-          searchNode = searchNode.getNext();
         }
-
-        return searchNode;
+        return -1;
     }
 
-    public void TraversingList(SimplyLinkedList head){
-      SimplyLinkedList traverseNode;
-
-      traverseNode = head;
-      while((traverseNode.nextNodeRef != null)){
-        if(!traverseNode.isHead){
-          traverseNode.printNodeData();
-        }
-        traverseNode = traverseNode.getNext();
+    // Method for traversal
+    public void traverse() {
+      Node tmpNext = head;
+      while(tmpNext.next != null){
+        tmpNext = tmpNext.next;
       }
-
-      System.out.println();
     }
-
-    public SimplyLinkedList TraversingList(SimplyLinkedList head, int index){
-      SimplyLinkedList traverseNode;
-
-      traverseNode = head;
-      for(int i = 0; i < index; ++i){
-        if(!traverseNode.isHead){
-          traverseNode.printNodeData();
-        }
-        traverseNode = traverseNode.getNext();
-      }
-
-      return traverseNode;
-    }
-
-    // Get location of nextNodeRef
-    public SimplyLinkedList getNext() {
-      return this.nextNodeRef;
-    }
-
-    public int getDataVal() {
-      return this.dataVal;
-    }
-
-    public void printNodeData() {
-      System.out.print(this.dataVal + " ");
-    }
-
 }
