@@ -66,6 +66,10 @@ public class LinkedListTest {
         return intNumbers;
     }
 
+    public boolean checkHead(){
+        return simpleLinkedList.checkHead();
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         LinkedListTest tester = new LinkedListTest();
@@ -84,6 +88,10 @@ public class LinkedListTest {
                         break;
 
                     case 2:
+                        if(tester.checkHead()) {
+                            System.out.println("List is empty please insert values into the list.");
+                            break;
+                        }
                         System.out.println("Please select which node to delete: 1) Head 2) Tail 3) By Element");
                         int deleteChoice = Integer.parseInt(scanner.nextLine());
                         if (deleteChoice == 1 || deleteChoice == 2) {
@@ -98,12 +106,20 @@ public class LinkedListTest {
                         break;
 
                     case 3:
+                        if(tester.checkHead()) {
+                            System.out.println("List is empty please insert values into the list.");
+                            break;
+                        }
                         System.out.println("Please enter the integer element you are looking for:");
                         int searchData = Integer.parseInt(scanner.nextLine());
                         tester.searchElement(searchData);
                         break;
 
                     case 4:
+                        if(tester.checkHead()) {
+                            System.out.println("List is empty please insert values into the list.");
+                            break;
+                        }
                         tester.traverseAndPrint();
                         break;
 

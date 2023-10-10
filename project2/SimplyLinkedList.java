@@ -26,8 +26,7 @@ public class SimplyLinkedList {
 
     // Method to delete the head
     public void deleteHead() {
-        Node tmpNext = head;
-        head = tmpNext.next;
+        Node tmpNext = head.next;
         head = null;
         head = tmpNext;
     }
@@ -35,11 +34,11 @@ public class SimplyLinkedList {
     // Method to delete the tail
     public void deleteTail() {
       Node tmpNext = head;
-        while(head.next != null){
-          head = head.next;
-        }
-        head = null;
-        head = tmpNext;
+      tmpNext.next = head.next;
+      while(tmpNext.next.next != null){
+        tmpNext = tmpNext.next;
+      }
+      tmpNext.next = null;
     }
 
     // Method to delete a node with the given value
@@ -59,25 +58,33 @@ public class SimplyLinkedList {
 
     // Method to search for a certain element
     public int search(int data) {
-        Node tmpNext = head;
-        int count = 0;
-        while(tmpNext.next != null){
-          tmpNext = tmpNext.next;
-          count++;
-          if(tmpNext.data == data){
-            return count;
-          }
+      Node tmpNext = head;
+      int count = 0;
+      while(tmpNext.next != null){
+        tmpNext = tmpNext.next;
+        count++;
+        if(tmpNext.data == data){
+          return count;
         }
-        return -1;
+      }
+      return -1;
     }
 
     // Method for traversal
     public void traverse() {
       Node tmpNext = head;
+
       System.out.print(tmpNext.data + " ");
       while(tmpNext.next != null){
         tmpNext = tmpNext.next;
         System.out.print(tmpNext.data + " ");
       }
+    }
+
+    public boolean checkHead(){
+      if(head == null){
+        return true;
+      }
+      return false;
     }
 }
