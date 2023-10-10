@@ -20,9 +20,10 @@ public class SimplyLinkedList {
     // Method to insert a node
     public void insert(int data) {
       Node newNode = new Node(data);
-      Node tmpNext = head.next;
+      Node tmpNext = head;
       head.next = newNode;
-      newNode.next = tmpNext;
+      newNode.next = tmpNext.next;
+      head = tmpNext;
     }
 
     // Method to delete the head
@@ -75,8 +76,10 @@ public class SimplyLinkedList {
     // Method for traversal
     public void traverse() {
       Node tmpNext = head;
+      System.out.print(tmpNext.data + " ");
       while(tmpNext.next != null){
         tmpNext = tmpNext.next;
+        System.out.print(tmpNext.data + " ");
       }
     }
 }
