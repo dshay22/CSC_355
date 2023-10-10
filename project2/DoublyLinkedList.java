@@ -38,29 +38,7 @@ public class DoublyLinkedList {
         newNode.prev = prevNode;
         newNode.next = tail;
         tail.prev = newNode;
-
         this.size++;
-        // Node newNode = new Node(data);
-
-        // if(head.next == null){
-        //     head.next = newNode;
-        //     tail.prev = newNode;
-
-        //     newNode.prev = head;
-        //     this.size++;
-        //     return;
-        // }
-
-        // Node temp = head.next;
-
-        // while(temp.next != null){
-        //     temp = temp.next;
-        // }
-
-        // temp.next = newNode;
-        // newNode.prev = temp;
-        // tail.prev = newNode;
-        // this.size++;
     }
 
     // Method to delete the head
@@ -74,8 +52,7 @@ public class DoublyLinkedList {
     // Method to delete the tail
     public void deleteTail() {
         Node tmpPrev = tail.prev.prev;
-        tail.prev = null;
-        tmpPrev.next = null;
+        tmpPrev.next = tail;
         tail.prev = tmpPrev;
         this.size--;
     }
@@ -153,7 +130,7 @@ public class DoublyLinkedList {
     }
 
     public boolean checkHead(){
-        if(head == null){
+        if(head.next == tail && tail.prev == head){
           return true;
         }
         return false;

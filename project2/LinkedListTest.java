@@ -35,7 +35,7 @@ public class LinkedListTest {
     }
 
     public void searchElement(int data) {
-        int outComeSimple = 0;//simpleLinkedList.search(data);
+        int outComeSimple = simpleLinkedList.search(data);
         int outComeDouble = doublyLinkedList.search(data);
         if(outComeSimple == -1 || outComeDouble == -1){
             System.out.println(data + " Does not exsist in the linked list");
@@ -77,7 +77,7 @@ public class LinkedListTest {
         if(simpleLinkedList.checkHead() && doublyLinkedList.checkHead()){
             return true;
         }
-        return doublyLinkedList.checkHead();
+        return false;
     }
 
     public static void main(String[] args) {
