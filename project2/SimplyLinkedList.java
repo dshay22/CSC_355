@@ -20,10 +20,8 @@ public class SimplyLinkedList {
     // Method to insert a node
     public void insert(int data) {
       Node newNode = new Node(data);
-      Node tmpNext = head;
-      head.next = newNode;
-      newNode.next = tmpNext.next;
-      head = tmpNext;
+      newNode.next = head; // Set the new node's next to the current head
+      head = newNode;
     }
 
     // Method to delete the head
