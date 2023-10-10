@@ -3,16 +3,17 @@ public class LinkedListTest {
 
     // Class variables for Simple and Double linked lists
     private SimplyLinkedList simpleLinkedList;
-    //private DoublyLinkedList doublyLinkedList;
+    private DoublyLinkedList doublyLinkedList;
 
     public LinkedListTest() {
         simpleLinkedList = new SimplyLinkedList();
-        //doublyLinkedList = new DoublyLinkedList();
+        doublyLinkedList = new DoublyLinkedList();
     }
 
     public void insertElements(int[] n) {
         for (int value : n) {
             simpleLinkedList.insert(value);
+            doublyLinkedList.insert(value);
         }
     }
 
@@ -20,28 +21,34 @@ public class LinkedListTest {
         switch(option){
             case 1:
                 simpleLinkedList.deleteHead();
+                doublyLinkedList.deleteHead();
                 break;
             case 2:
                 simpleLinkedList.deleteTail();
+                doublyLinkedList.deleteTail();
                 break;
             case 3:
                 simpleLinkedList.delete(data);
+                doublyLinkedList.delete(data);
                 break;
         }
     }
 
     public void searchElement(int data) {
-        int outCome = simpleLinkedList.search(data);
-        if(outCome == -1){
+        int outComeSimple = 0;//simpleLinkedList.search(data);
+        int outComeDouble = doublyLinkedList.search(data);
+        if(outComeSimple == -1 || outComeDouble == -1){
             System.out.println(data + " Does not exsist in the linked list");
         }
         else{
-            System.out.println(data + " was found at index " + outCome + " in the linked list");
+            System.out.println(data + " was found at index " + outComeSimple + " in the Simple linked list");
+            System.out.println(data + " was found at index " + outComeDouble + " in the Doubly linked list");
         }
     }
 
     public void traverseAndPrint() {
         simpleLinkedList.traverse();
+        doublyLinkedList.forwardTraversal();
     }
 
     public static void printMainChoices(){
@@ -67,7 +74,10 @@ public class LinkedListTest {
     }
 
     public boolean checkHead(){
-        return simpleLinkedList.checkHead();
+        if(simpleLinkedList.checkHead() && doublyLinkedList.checkHead()){
+            return true;
+        }
+        return doublyLinkedList.checkHead();
     }
 
     public static void main(String[] args) {
@@ -76,9 +86,9 @@ public class LinkedListTest {
         printMainChoices();
 
         int choice;
-        while (true) {
+        choice = Integer.parseInt(scanner.nextLine());
+        while (choice != 0) {
             try {
-                choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
                         System.out.println("Please enter integers separated by spaces:");
@@ -92,6 +102,7 @@ public class LinkedListTest {
                             System.out.println("List is empty please insert values into the list.");
                             break;
                         }
+
                         System.out.println("Please select which node to delete: 1) Head 2) Tail 3) By Element");
                         deleteChoice = Integer.parseInt(scanner.nextLine());
 
@@ -126,16 +137,13 @@ public class LinkedListTest {
                         tester.traverseAndPrint();
                         break;
 
-                    case 0:
-                        scanner.close();
-                        System.exit(0);
-
                     default:
                         System.out.println("Invalid choice. Please select a valid option.");
                         break;
                 }
-
+                System.out.print("\n");
                 printMainChoices();
+                choice = Integer.parseInt(scanner.nextLine());
             } 
             catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number.");

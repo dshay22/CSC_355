@@ -85,11 +85,20 @@ public class SimplyLinkedList {
     public void traverse() {
       Node tmpNext = head;
 
-      System.out.print(tmpNext.data + " ");
+      System.out.print("For SimplyLinkedList: Forward:  ");
+      System.out.print(tmpNext.data + " -> ");
+
       while(tmpNext.next != null){
         tmpNext = tmpNext.next;
-        System.out.print(tmpNext.data + " ");
+        if(tmpNext.next == null){
+          System.out.print(tmpNext.data);
+        }
+        else{
+            System.out.print(tmpNext.data + " -> ");
+        }
       }
+
+      System.out.print("\n");
     }
 
     public boolean checkHead(){
