@@ -79,7 +79,6 @@ public class LinkedListTest {
         while (true) {
             try {
                 choice = Integer.parseInt(scanner.nextLine());
-
                 switch (choice) {
                     case 1:
                         System.out.println("Please enter integers separated by spaces:");
@@ -88,19 +87,23 @@ public class LinkedListTest {
                         break;
 
                     case 2:
+                        int deleteChoice;
                         if(tester.checkHead()) {
                             System.out.println("List is empty please insert values into the list.");
                             break;
                         }
                         System.out.println("Please select which node to delete: 1) Head 2) Tail 3) By Element");
-                        int deleteChoice = Integer.parseInt(scanner.nextLine());
+                        deleteChoice = Integer.parseInt(scanner.nextLine());
+
                         if (deleteChoice == 1 || deleteChoice == 2) {
                             tester.deleteElement(deleteChoice, -1);
-                        } else if (deleteChoice == 3) {
+                        } 
+                        else if (deleteChoice == 3) {
                             System.out.println("Enter the integer data option you would like to delete:");
                             int deleteData = Integer.parseInt(scanner.nextLine());
                             tester.deleteElement(3, deleteData);
-                        } else {
+                        } 
+                        else {
                             System.out.println("Invalid input. Please select 1, 2, or 3.");
                         }
                         break;
@@ -140,7 +143,6 @@ public class LinkedListTest {
         }
     }
 }
-
 
     // TODO: Implement the command line interface for the user based on the given options
     // When the program starts, print the interface below and wait for the user's input.
