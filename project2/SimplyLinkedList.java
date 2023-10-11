@@ -72,11 +72,11 @@ public class SimplyLinkedList {
       Node tmpNext = head;
       int count = 0;
       while(tmpNext.next != null){
-        tmpNext = tmpNext.next;
-        count++;
         if(tmpNext.data == data){
           return count;
         }
+        tmpNext = tmpNext.next;
+        count++;
       }
       return -1;
     }
@@ -85,7 +85,7 @@ public class SimplyLinkedList {
     public void traverse() {
       Node tmpNext = head;
 
-      System.out.print("For SimplyLinkedList: Forward:  ");
+      System.out.print("\nFor SimplyLinkedList: Forward:  ");
       System.out.print(tmpNext.data + " -> ");
 
       while(tmpNext.next != null){
@@ -101,10 +101,7 @@ public class SimplyLinkedList {
       System.out.print("\n");
     }
 
-    public boolean checkHead(){
-      if(head == null){
-        return true;
-      }
-      return false;
+    public boolean checkHead() {
+      return head == null;
     }
 }

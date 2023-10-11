@@ -60,25 +60,27 @@ public class DoublyLinkedList {
     // Method to delete a node with the given value
     public void delete(int data) {
         Node currentNode = head.next;
-        int currentIndex = 0;
-        int index = search(data);
+        Node prevNode = head;
+    
         while (currentNode != null) {
-            if (currentIndex == index) {
-                if (currentNode.prev != null) {
-                    currentNode.prev.next = currentNode.next;
-                }
+            if (currentNode.data == data) {
+                prevNode.next = currentNode.next;
+    
                 if (currentNode.next != null) {
-                    currentNode.next.prev = currentNode.prev;
+                    currentNode.next.prev = prevNode;
                 }
-                // Optionally, you can set the next and prev of the node to be deleted to null.
+    
                 currentNode.next = null;
                 currentNode.prev = null;
-                return; // Node found and deleted.
+    
+                this.size--;
+                return; 
             }
     
+            prevNode = currentNode;
             currentNode = currentNode.next;
-            currentIndex++;
         }
+
         this.size--;
     }
 
@@ -88,13 +90,14 @@ public class DoublyLinkedList {
         Node tailNode = tail.prev;
         int index = 0;
         int tailIndex = this.size - 1;
+        int mid = this.size / 2;
 
-        while (currentNode.next != null && tailNode.prev != null) {
+        while (currentNode.next != null && tailNode.prev != null && index < mid) {
             if (currentNode.data == data) {
-                return index; // Return the index of the node where data was found.
+                return index;
             }
             if (tailNode.data == data) {
-                return tailIndex; // Return the index from the tail side.
+                return tailIndex;
             }
 
             currentNode = currentNode.next;
@@ -111,28 +114,39 @@ public class DoublyLinkedList {
         Node tmpNext = head.next;
 
         System.out.print("For DoublyLinkedList: Forward:  ");
-        System.out.print(tmpNext.data + " -> ");
-        while(tmpNext.next != null){
+    
+        if (tmpNext != null) {
+            System.out.print(tmpNext.data);
             tmpNext = tmpNext.next;
-            if(tmpNext.next == null){
-                System.out.print(tmpNext.data);
+    
+            while (tmpNext != tail) {
+                System.out.print(" -> " + tmpNext.data);
+                tmpNext = tmpNext.next;
             }
-            else{
-                System.out.print(tmpNext.data + " -> ");
-            }
+    
+            System.out.println();
         }
-        System.out.print("\n");
     }
 
     // Method for backward traversal
     public void backwardTraversal() {
-        // TODO: Implement this method
+        Node tmpPrev = tail.prev; // Start from the tail's predecessor
+
+        System.out.print("                      Backward: ");
+    
+        if (tmpPrev != null) {
+            System.out.print(tmpPrev.data);
+    
+            while (tmpPrev != head) {
+                System.out.print(" -> " + tmpPrev.data);
+                tmpPrev = tmpPrev.prev;
+            }
+    
+            System.out.println();
+        }
     }
 
-    public boolean checkHead(){
-        if(head.next == tail && tail.prev == head){
-          return true;
-        }
-        return false;
-      }
+    public boolean checkHead() {
+        return head.next == tail && tail.prev == head;
+    }
 }

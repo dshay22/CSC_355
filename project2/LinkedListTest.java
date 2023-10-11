@@ -37,8 +37,9 @@ public class LinkedListTest {
     public void searchElement(int data) {
         int outComeSimple = simpleLinkedList.search(data);
         int outComeDouble = doublyLinkedList.search(data);
+
         if(outComeSimple == -1 || outComeDouble == -1){
-            System.out.println(data + " Does not exsist in the linked list");
+            System.out.println(data + " Does not exsist in the linked list" + outComeSimple + " " + outComeDouble);
         }
         else{
             System.out.println(data + " was found at index " + outComeSimple + " in the Simple linked list");
@@ -49,6 +50,7 @@ public class LinkedListTest {
     public void traverseAndPrint() {
         simpleLinkedList.traverse();
         doublyLinkedList.forwardTraversal();
+        doublyLinkedList.backwardTraversal();
     }
 
     public static void printMainChoices(){
@@ -93,7 +95,14 @@ public class LinkedListTest {
                     case 1:
                         System.out.println("Please enter integers separated by spaces:");
                         String inputString = scanner.nextLine();
+
+                        long startTime = System.nanoTime();
+
                         tester.insertElements(getNums(inputString));
+
+                        long endTime = System.nanoTime();
+                        long executionTime = endTime - startTime;
+                        System.out.println("Function execution time: " + executionTime + " nanoseconds");
                         break;
 
                     case 2:
@@ -106,6 +115,8 @@ public class LinkedListTest {
                         System.out.println("Please select which node to delete: 1) Head 2) Tail 3) By Element");
                         deleteChoice = Integer.parseInt(scanner.nextLine());
 
+                        startTime = System.nanoTime();
+
                         if (deleteChoice == 1 || deleteChoice == 2) {
                             tester.deleteElement(deleteChoice, -1);
                         } 
@@ -117,6 +128,10 @@ public class LinkedListTest {
                         else {
                             System.out.println("Invalid input. Please select 1, 2, or 3.");
                         }
+
+                        endTime = System.nanoTime();
+                        executionTime = endTime - startTime;
+                        System.out.println("Function execution time: " + executionTime + " nanoseconds");
                         break;
 
                     case 3:
@@ -126,19 +141,38 @@ public class LinkedListTest {
                         }
                         System.out.println("Please enter the integer element you are looking for:");
                         int searchData = Integer.parseInt(scanner.nextLine());
+
+                        startTime = System.nanoTime();
+                        
                         tester.searchElement(searchData);
+
+                        endTime = System.nanoTime();
+                        executionTime = endTime - startTime;
+                        System.out.println("Function execution time: " + executionTime + " nanoseconds");
                         break;
 
                     case 4:
+                        startTime = System.nanoTime();    
+
                         if(tester.checkHead()) {
                             System.out.println("List is empty please insert values into the list.");
                             break;
                         }
                         tester.traverseAndPrint();
+
+                        endTime = System.nanoTime();
+                        executionTime = endTime - startTime;
+                        System.out.println("Function execution time: " + executionTime + " nanoseconds");
                         break;
 
                     default:
+                        startTime = System.nanoTime();
+
                         System.out.println("Invalid choice. Please select a valid option.");
+
+                        endTime = System.nanoTime();
+                        executionTime = endTime - startTime;
+                        System.out.println("Function execution time: " + executionTime + " nanoseconds");
                         break;
                 }
                 System.out.print("\n");
