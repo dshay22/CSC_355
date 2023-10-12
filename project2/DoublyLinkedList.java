@@ -92,7 +92,7 @@ public class DoublyLinkedList {
         int tailIndex = this.size - 1;
         int mid = this.size / 2;
 
-        while (currentNode.next != null && tailNode.prev != null && index < mid) {
+        while (currentNode.next != null && tailNode.prev != null && index <= mid) {
             if (currentNode.data == data) {
                 return index;
             }
@@ -130,16 +130,16 @@ public class DoublyLinkedList {
 
     // Method for backward traversal
     public void backwardTraversal() {
-        Node tmpPrev = tail.prev; // Start from the tail's predecessor
+        Node tmpPrev = tail.prev;
 
         System.out.print("                      Backward: ");
     
         if (tmpPrev != null) {
             System.out.print(tmpPrev.data);
     
-            while (tmpPrev != head) {
-                System.out.print(" -> " + tmpPrev.data);
+            while (tmpPrev.prev != head) {
                 tmpPrev = tmpPrev.prev;
+                System.out.print(" -> " + tmpPrev.data);
             }
     
             System.out.println();

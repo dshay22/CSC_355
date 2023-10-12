@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 public class SimplyLinkedList {
     // Inner node class for the linked list
     private class Node {
@@ -45,7 +44,13 @@ public class SimplyLinkedList {
     // Method to delete the tail
     public void deleteTail() {
       Node tmpNext = head;
-      tmpNext.next = head.next;
+      if(tmpNext.next != null){
+        tmpNext.next = head.next;
+      }
+      else{
+        head = null;
+        return;
+      }
       while(tmpNext.next.next != null){
         tmpNext = tmpNext.next;
       }
@@ -55,29 +60,36 @@ public class SimplyLinkedList {
     // Method to delete a node with the given value
     public void delete(int data) {
       Node tmpNext = head;
-      Node tmpNextNext;
+      Node prevTemNode = head;
 
-      int elementIndex = search(data);
-      for(int i = 0; i < elementIndex - 1; ++i){
-        tmpNext = tmpNext.next;
+      if(tmpNext.data == data){
+        head = tmpNext.next;
       }
 
-      tmpNextNext = tmpNext.next.next;
-      tmpNext.next = null;
-      tmpNext.next = tmpNextNext;
+      while(tmpNext.data != data){
+        if(tmpNext.next != null){
+          prevTemNode = tmpNext;
+          tmpNext = tmpNext.next;
+        }
+      }
+
+      prevTemNode.next = tmpNext.next;
+      tmpNext = null;
     }
 
     // Method to search for a certain element
     public int search(int data) {
       Node tmpNext = head;
       int count = 0;
-      while(tmpNext.next != null){
-        if(tmpNext.data == data){
-          return count;
-        }
+      while(tmpNext.data != data){
         tmpNext = tmpNext.next;
         count++;
       }
+
+      if(tmpNext.data == data){
+          return count;
+      }
+      
       return -1;
     }
 
@@ -86,17 +98,17 @@ public class SimplyLinkedList {
       Node tmpNext = head;
 
       System.out.print("\nFor SimplyLinkedList: Forward:  ");
-      System.out.print(tmpNext.data + " -> ");
-
-      while(tmpNext.next != null){
+      if (tmpNext != null) {
+        System.out.print(tmpNext.data);
         tmpNext = tmpNext.next;
-        if(tmpNext.next == null){
-          System.out.print(tmpNext.data);
+
+        while (tmpNext != null) {
+            System.out.print(" -> " + tmpNext.data);
+            tmpNext = tmpNext.next;
         }
-        else{
-            System.out.print(tmpNext.data + " -> ");
-        }
-      }
+
+        System.out.println();
+    }
 
       System.out.print("\n");
     }
