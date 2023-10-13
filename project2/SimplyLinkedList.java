@@ -81,7 +81,7 @@ public class SimplyLinkedList {
     public int search(int data) {
       Node tmpNext = head;
       int count = 0;
-      while(tmpNext.data != data){
+      while(tmpNext.data != data && tmpNext.next != null){
         tmpNext = tmpNext.next;
         count++;
       }
@@ -108,9 +108,7 @@ public class SimplyLinkedList {
         }
 
         System.out.println();
-    }
-
-      System.out.print("\n");
+      }
     }
 
     public boolean checkHead() {

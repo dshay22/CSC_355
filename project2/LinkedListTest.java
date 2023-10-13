@@ -6,17 +6,8 @@ public class LinkedListTest {
     private DoublyLinkedList doublyLinkedList;
 
     public LinkedListTest() {
-        long start, end;
-
-        start = System.nanoTime();
         simpleLinkedList = new SimplyLinkedList();
-        end = System.nanoTime();
-        System.out.println("Single Time: " + (end - start));
-
-        start = System.nanoTime();
         doublyLinkedList = new DoublyLinkedList();
-        end = System.nanoTime();
-        System.out.println("Double Time: " + (end - start));
     }
 
     public void insertElements(int[] n) {
@@ -27,7 +18,7 @@ public class LinkedListTest {
             simpleLinkedList.insert(value);
         }
         end = System.nanoTime();
-        System.out.println("Single Time: " + (end - start));
+        System.out.println("\nSingle Time: " + (end - start));
 
         start = System.nanoTime();
         for (int value : n) {
@@ -49,7 +40,7 @@ public class LinkedListTest {
                 start = System.nanoTime();
                 doublyLinkedList.deleteHead();
                 end = System.nanoTime();
-                System.out.println("Double Time: " + (end - start));
+                System.out.println("Double Time: " + (end - start) + "\n");
                 break;
             case 2:
                 start = System.nanoTime();
@@ -60,7 +51,7 @@ public class LinkedListTest {
                 start = System.nanoTime();
                 doublyLinkedList.deleteTail();
                 end = System.nanoTime();
-                System.out.println("Double Time: " + (end - start));
+                System.out.println("Double Time: " + (end - start) + "\n");
                 break;
             case 3:
                 start = System.nanoTime();
@@ -71,7 +62,7 @@ public class LinkedListTest {
                 start = System.nanoTime();
                 doublyLinkedList.delete(data);
                 end = System.nanoTime();
-                System.out.println("Double Time: " + (end - start));
+                System.out.println("Double Time: " + (end - start) + "\n");
                 break;
         }
     }
@@ -86,10 +77,10 @@ public class LinkedListTest {
         start = System.nanoTime();
         int outComeDouble = doublyLinkedList.search(data);
         end = System.nanoTime();
-        System.out.println("Double Time: " + (end - start));
+        System.out.println("Double Time: " + (end - start) + "\n");
 
         if(outComeSimple == -1 || outComeDouble == -1){
-            System.out.println(data + " Does not exsist in the linked list" + outComeSimple + " " + outComeDouble);
+            System.out.println(data + " Does not exsist in the linked list");
         }
         else{
             System.out.println(data + " was found at index " + outComeSimple + " in the Simple linked list");
@@ -102,17 +93,17 @@ public class LinkedListTest {
         start = System.nanoTime();
         simpleLinkedList.traverse();
         end = System.nanoTime();
-        System.out.println("Single Time: " + (end - start));
+        System.out.println("Single Time: " + (end - start)+ "\n");
 
-        start = System.nanoTime();
+        long fstart = System.nanoTime();
         doublyLinkedList.forwardTraversal();
-        end = System.nanoTime();
-        System.out.println("Double Time Forward: " + (end - start));
+        long fend = System.nanoTime();
 
         start = System.nanoTime();
         doublyLinkedList.backwardTraversal();
         end = System.nanoTime();
-        System.out.println("Double Time Backward: " + (end - start));
+        System.out.println("\nDoubleLinkedList Time Forward: " + (fend - fstart));
+        System.out.println("DoubleLinkedList Time Backward: " + (end - start));
     }
 
     public static void printMainChoices(){
