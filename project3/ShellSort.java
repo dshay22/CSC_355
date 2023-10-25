@@ -1,26 +1,31 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ShellSort{
 
-    public void printArr(int[] arr){
-        System.out.println(Arrays.toString(arr));
+    ShellSort(){
+
     }
 
-    public static void sort(int [] arr){
-        int n = arr.length;
+    public void printArr(ArrayList<Integer> arr){
+        System.out.println(arr);
+    }
+
+    public static void sort(ArrayList<Integer> arr){
+        int n = arr.size();
 
         for(int gap = n/2; gap >= 1; gap /= 2){     //creat the gap and keep dividing the gap by 2 until the gap is 1
 
-            for(int i = gap; i < arr.length; ++i){ //start itterating at the gap and move to the right though the array
+            for(int i = gap; i < arr.size(); ++i){ //start itterating at the gap and move to the right though the array
 
                 int j = i;                          //make j equal to the itterator i
 
-                while( (j >= gap) && (Integer.compare(arr[j], arr[j - gap]) > 0) ){ // compare element [j] with element [j - gap]
+                while( (j >= gap) && (Integer.compare(arr.get(j), arr.get(j - gap)) < 0) ){ // compare element [j] with element [j - gap]
                     
                     //swap the values if the j element is smaller than the j - gap element
-                    int temp = arr[j];
-                    arr[j] = arr[j - gap];
-                    arr[j - gap] = temp;
+                    int temp = arr.get(j);
+                    arr.set(j, arr.get(j - gap));
+                    arr.set((j - gap), temp);
 
                     j -= gap;  //decriment the j value so we dont get an infinite while loop
                 }
