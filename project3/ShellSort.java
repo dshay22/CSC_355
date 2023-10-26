@@ -1,15 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ShellSort{
-
-    ShellSort(){
-
-    }
-
-    public void printArr(ArrayList<Integer> arr){
-        System.out.println(arr);
-    }
+public class ShellSort extends SortingTest{
 
     public static void sort(ArrayList<Integer> arr){
         int n = arr.size();
