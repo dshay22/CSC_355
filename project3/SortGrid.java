@@ -34,18 +34,53 @@ public class SortGrid extends SortingTest{
     }
 
     public void sort(){ //implimented quick sort for part 3 of project 3
-        int pivot = dimension / 2;
+        int pivot = arry2D[dimension - 1][dimension - 1]; //chosen pivot is the last element in my array
+        
+    }
 
-        int temp = arry2D[pivot - 1][dimension - 1];
-        arry2D[pivot - 1][dimension - 1] = arry2D[dimension - 1][dimension - 1];
-        arry2D[dimension - 1][dimension - 1] = temp;
+    public void swap(int row1, int col1, int row2, int col2){
+        int temp = arry2D[row1][col1];
+        arry2D[row1][col1] = arry2D[row2][col2];
+        arry2D[row2][col2] = temp;
+    }
 
-        for(int i = 0; i < dimension; ++i){       //populate array
-            for(int j = 0; j < dimension; ++j){
-                if(arry2D[i][j] < arry2D[dimension - 1][dimension - 1]){
-                    
-                }
+    public int compareTo(int var1, int var2, int pivot){
+        if(var1 > pivot && var2 < pivot){
+            return 1;
+        }
+        else if(var1 > pivot && !(var2 < pivot)){
+            return 2;
+        }
+        else if(!(var1 > pivot) && var2 < pivot){
+            return 3;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public void traverse(){
+        int pivot = arry2D[dimension - 1][dimension - 1];
+        int count = 0;
+        int i = 0, j = 0;
+        int k = dimension - 2, h = dimension - 2;
+
+        while(count < (dimension * dimension)){
+            if(compareTo(arry2D[i][j], arry2D[k][h], pivot) == 1){
+                swap(i,j,k,h);
+                h--;
+                j++;
+                count++;
             }
+            else if (compareTo(arry2D[i][j], arry2D[k][h], pivot) == 2){
+                h--;
+                count++;
+            }
+            else if(compareTo(arry2D[i][j], arry2D[k][h], pivot) == 3){
+                j++;
+                count++;
+            }
+            
         }
     }
 
