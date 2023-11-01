@@ -7,5 +7,5 @@ public class Main {
         SortingTest testObj = new SortingTest();
         testObj.runTestCases();
         
-    }
+     }
 }

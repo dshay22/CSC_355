@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SortGrid extends SortingTest{
@@ -21,68 +23,99 @@ public class SortGrid extends SortingTest{
 
     }
 
-    public void printArray(){
+    public int high(){
+        return arry2D.length - 1;
+    }
 
-        for(int i = 0; i < dimension; ++i){
+    public int[][] get2D(){
+        return this.arry2D;
+    }
 
-            for(int j = 0; j < dimension; ++j){
-                    System.out.print(arry2D[i][j] + " ");
+    public void sort(int[][] arr2D){
+
+        int[] flatArry = flatten(arr2D);
+        quickSort(flatArry);
+        arr2D = expand(flatArry, dimension, dimension);
+        printArray2D(arr2D);
+
+    }
+
+    public void quickSort(int[] arr) {
+        quickSort(arr, 0, arr.length - 1);
+    }
+
+    public void quickSort(int[] arr, int low, int high) {
+
+        if (low < high) {
+            int pivotIndex = partition(arr, low, high);
+            quickSort(arr, low, pivotIndex - 1);
+            quickSort(arr, pivotIndex + 1, high);
+        }
+        
+    }
+    
+    public int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = (low - 1);
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
             }
+        }
 
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+
+    public int[] flatten(int[][] arr2D) {
+        int totalElements = 0;
+    
+        for (int[] row : arr2D) {
+            totalElements += row.length;
+        }
+    
+        int[] flattenedArray = new int[totalElements];
+        int index = 0;
+    
+        for (int[] row : arr2D) {
+            for (int element : row) {
+                flattenedArray[index] = element;
+                index++;
+            }
+        }
+    
+        return flattenedArray;
+    }
+
+    public static int[][] expand(int[] arr, int numRows, int numCols) {
+    
+        int[][] twoDArray = new int[numRows][numCols];
+        int index = 0;
+    
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                twoDArray[row][col] = arr[index];
+                index++;
+            }
+        }
+    
+        return twoDArray;
+    }
+
+    public void printArray2D(int[][] arr) {
+        for (int[] row : arr) {
+            for (int element : row) {
+                System.out.print(element + " ");
+            }
             System.out.println();
         }
     }
-
-    public void sort(){ //implimented quick sort for part 3 of project 3
-        int pivot = arry2D[dimension - 1][dimension - 1]; //chosen pivot is the last element in my array
-        
-    }
-
-    public void swap(int row1, int col1, int row2, int col2){
-        int temp = arry2D[row1][col1];
-        arry2D[row1][col1] = arry2D[row2][col2];
-        arry2D[row2][col2] = temp;
-    }
-
-    public int compareTo(int var1, int var2, int pivot){
-        if(var1 > pivot && var2 < pivot){
-            return 1;
-        }
-        else if(var1 > pivot && !(var2 < pivot)){
-            return 2;
-        }
-        else if(!(var1 > pivot) && var2 < pivot){
-            return 3;
-        }
-        else {
-            return 0;
-        }
-    }
-
-    public void traverse(){
-        int pivot = arry2D[dimension - 1][dimension - 1];
-        int count = 0;
-        int i = 0, j = 0;
-        int k = dimension - 2, h = dimension - 2;
-
-        while(count < (dimension * dimension)){
-            if(compareTo(arry2D[i][j], arry2D[k][h], pivot) == 1){
-                swap(i,j,k,h);
-                h--;
-                j++;
-                count++;
-            }
-            else if (compareTo(arry2D[i][j], arry2D[k][h], pivot) == 2){
-                h--;
-                count++;
-            }
-            else if(compareTo(arry2D[i][j], arry2D[k][h], pivot) == 3){
-                j++;
-                count++;
-            }
-            
-        }
-    }
-
 
 }

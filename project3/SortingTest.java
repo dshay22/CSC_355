@@ -1,12 +1,15 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.List;
 
-public class SortingTest{
+public class SortingTest {
 
-    protected ArrayList<Integer> arry = new ArrayList<Integer>();
+    public ArrayList<Integer> arry = new ArrayList<Integer>();
 
     private File arr1 = new File("array1.txt");
     private File arr2 = new File("array2.txt");
@@ -19,11 +22,26 @@ public class SortingTest{
     private File grid3 = new File("testGrid3.txt");
     private File grid4 = new File("testGrid4.txt");
     private File grid5 = new File("testGrid5.txt");
+    private FileWriter shellWriter, arrayWriter;
 
     private File[] myFileArry = { arr1, arr2, arr3, arr4, arr5};
-    private File[] myFileGrid = { grid1};//, grid2, grid3, grid4, grid5};
+    private File[] myFileGrid = { grid1, grid2, grid3, grid4, grid5};
 
-    private Scanner scnr;
+    private Scanner shellScnr, arrScanner;
+
+    SortingTest(){
+
+        try {
+            shellWriter = new FileWriter("shell_sort_output.txt");
+            arrayWriter = new FileWriter("array_sort_output.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Integer> getArray(){
+        return this.arry;
+    }
 
     public ArrayList<Integer> readFile(Scanner fileReader, File input){ //reads the input files
 
@@ -43,42 +61,65 @@ public class SortingTest{
         return arry;
     }
 
-    public void runTestCases(){
+    public void outToFile(ArrayList<Integer> arr, FileWriter fileName) {
+        try {
+            for (Integer number : arr) {
+                fileName.write(String.valueOf(number) + " ");
+            }
+            fileName.write("\n"); // Separate integers with line breaks
+            fileName.write("\n\n\nNEW TEST CASE\n");
+            //fileName.flush(); // Flush the data to the file
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void runTestCases() {
+        for (int i = 0; i < myFileGrid.length; i++) {
+                File newGrid = myFileGrid[i];
+                try{
+                    Scanner scnr = new Scanner(newGrid);
+                    int gridSize = scnr.nextInt();
+                    SortGrid gridObj = new SortGrid(gridSize, scnr);
+                    gridObj.sort(gridObj.get2D());
+                    System.out.println("\n\n");
+                    scnr.close();
+                }
+                catch (Exception e) {
+                e.printStackTrace();
+                }
+            }
+            
 
         ShellSort shellObj = new ShellSort();
         ArraySort arrayObj = new ArraySort();
-        int gridSize;
 
-        try {
-            // for(File newFile : myFileArry){ //for shell sort
-            //     shellObj.arry = readFile(scnr, newFile);
-            //     shellObj.sort(shellObj.arry);
-            //     System.out.println("Sorted Array: " + shellObj.arry + "\n");
-            //     System.out.println("\n\n :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: \n\n");
-            // }
+        for (int i = 0; i < myFileArry.length; i++) {
+            File file = myFileArry[i];
 
-            // for(File newFile : myFileArry){// for ArraySort wich I chose to impliment merge sort
-            //     arrayObj.arry = readFile(scnr, newFile);
-            //     arrayObj.sort(arrayObj.arry);
-            //     System.out.println("Sorted Array: " + arrayObj.arry + "\n");
-            //     System.out.println("\n\n :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: \n\n");
-            // }
-            
-            
-            for(File newGrid : myFileGrid){
-                scnr = new Scanner(newGrid);
-                gridSize = scnr.nextInt();
-                SortGrid gridObj = new SortGrid(gridSize, scnr);
-                gridObj.printArray();
-                gridObj.sort();
-                System.out.println();
-                gridObj.printArray();
+            shellObj.arry = new ArrayList<>();
+            arrayObj.arry = new ArrayList<>();
 
+            shellObj.arry = readFile(shellScnr, file);
+            arrayObj.arry = readFile(arrScanner, file);
+
+            shellObj.sort(shellObj.arry);
+            arrayObj.sort(arrayObj.arry);
+
+            // Create separate output files for each iteration
+            try {
+                FileWriter shellIterationWriter = new FileWriter("shell_sort_output_" + i + ".txt");
+                FileWriter arrayIterationWriter = new FileWriter("array_sort_output_" + i + ".txt");
+
+                outToFile(shellObj.arry, shellIterationWriter);
+                outToFile(arrayObj.arry, arrayIterationWriter);
+
+                shellIterationWriter.close();
+                arrayIterationWriter.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } 
-        catch (Exception  e) {
-            e.printStackTrace();
         }
+
     }
 }
