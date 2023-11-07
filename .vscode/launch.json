@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "LinkedListTest",
+            "request": "launch",
+            "mainClass": "LinkedListTest",
+            "projectName": "CSC_355_114a6989"
+        },
+        {
+            "type": "java",
+            "name": "LinkedListTestClass",
+            "request": "launch",
+            "mainClass": "LinkedListTestClass",
+            "projectName": "CSC_355_114a6989"
+        },
+        {
+            "type": "java",
+            "name": "SelectionSort",
+            "request": "launch",
+            "mainClass": "SelectionSort",
+            "projectName": "CSC_355_114a6989"
+        },
+        {
+            "type": "java",
+            "name": "SorstArray",
+            "request": "launch",
+            "mainClass": "SorstArray",
+            "projectName": "CSC_355_114a6989"
+        },
+        {
+            "type": "java",
+            "name": "palindromes",
+            "request": "launch",
+            "mainClass": "palindromes",
+            "projectName": "CSC_355_114a6989"
+        },
+        {
+            "type": "java",
+            "name": "LeaderBoardTest",
+            "request": "launch",
+            "mainClass": "project1.LeaderBoardTest",
+            "projectName": "CSC_355_114a6989"
+        },
+        {
+            "type": "java",
+            "name": "HashtableTest",
+            "request": "launch",
+            "mainClass": "project4.HashtableTest",
+            "projectName": "CSC_355_114a6989"
+        }
+    ]
+}
