@@ -93,7 +93,7 @@ public class HashtableTest {
 		System.out.println("Actual: " + act);
 	    }
 	}
-
+	
 	System.out.println("Testing delete...");//4.0 points
 	temp = new ArrayList<String>();
 	i = gen.nextInt(n);
